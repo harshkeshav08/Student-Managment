@@ -1,196 +1,217 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useStudents from "../hooks/useStudents";
 
 function AddStudent() {
-  const { addStudent } = useStudents();
+  const { addStudent, updateStudent } = useStudents();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [formData, setFormData] = useState({
-    uid:"",
-    fullName: "",
-    email: "",
-    phone: "",
-    address: "",
-    course: "",
-    enrollmentDate: "",
-    status: "Active",
-    image:"",
-  });
+  const editStudent = location.state;
+
+  const [formData, setFormData] = useState(
+    editStudent || {
+      uid: "",
+      fullName: "",
+      email: "",
+      phone: "",
+      address: "",
+      course: "",
+      enrollmentDate: "",
+      status: "Active",
+    }
+  );
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !formData.fullName ||
-      !formData.email ||
-      !formData.course ||
-      !formData.enrollmentDate
-    ) {
-      alert("Please fill all required fields");
-      return;
+    if (editStudent) {
+      updateStudent(editStudent.id, formData);
+    } else {
+      addStudent({
+        ...formData,
+        id: Date.now(),
+      });
     }
 
-    addStudent(formData);
     navigate("/students");
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">
-        Add Student
+    <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow">
+
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
+        {editStudent ? "Edit Student" : "Add Student"}
       </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-sm border max-w-3xl"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-5">
 
-          <div>
-            <label className="block mb-2 font-medium">UID</label>
-            <input
-              type="text"
-              name="uid"
-              value={formData.uid}
-              onChange={handleChange}
-              placeholder="Enter your UID"
-              className="w-full border rounded-lg px-4 py-3"
-            />
-          </div>
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            UID
+          </label>
 
-          <div>
-            <label className="block mb-2 font-medium">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              placeholder="Enter full name"
-              className="w-full border rounded-lg px-4 py-3"
-            />
-          </div>
+          <input
+            type="text"
+            name="uid"
+            value={formData.uid}
+            onChange={handleChange}
+            placeholder="Enter UID"
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            required
+          />
+        </div>
 
-          <div>
-            <label className="block mb-2 font-medium">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter email"
-              className="w-full border rounded-lg px-4 py-3"
-            />
-          </div>
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            Full Name
+          </label>
 
-          <div>
-            <label className="block mb-2 font-medium">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter phone"
-              className="w-full border rounded-lg px-4 py-3"
-            />
-          </div>
+          <input
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            placeholder="Enter full name"
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            required
+          />
+        </div>
 
-          <div>
-            <label className="block mb-2 font-medium">Course</label>
-            <select
-              name="course"
-              value={formData.course}
-              onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
-            >
-              <option value="">Select course</option>
-              <option value="Computer Science">Computer Science</option>
-              <option value="B.Tech">B.Tech</option>
-              <option value="BCA">BCA</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="React JS">React JS</option>
-            </select>
-          </div>
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            Email
+          </label>
 
-          <div>
-            <label className="block mb-2 font-medium">
-              Enrollment Date
-            </label>
-            <input
-              type="date"
-              name="enrollmentDate"
-              value={formData.enrollmentDate}
-              onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
-            />
-          </div>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter email"
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            required
+          />
+        </div>
 
-          <div>
-            <label className="block mb-2 font-medium">Status</label>
-            <select
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
-            >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </div>
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            Phone
+          </label>
 
-          <div className="md:col-span-2">
-            <label className="block mb-2 font-medium">Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Enter address"
-              className="w-full border rounded-lg px-4 py-3"
-            />
-          </div>
+          <input
+            type="text"
+            inputMode="numeric"
+            name="phone"
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                phone: e.target.value.replace(/\D/g, ""),
+              })
+            }
+            placeholder="Enter phone"
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            required
+          />
+        </div>
 
-          <div className="md:col-span-2">
-         <label className="block mb-2 font-medium">Student Image</label>
-         <input
-          type="file"
-          name="image"
-          accept="image/*"
-        onChange={(e) => {
-  const file = e.target.files[0];
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            Course
+          </label>
 
-  if (file) {
-    const reader = new FileReader();
+          <select
+            name="course"
+            value={formData.course}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            required
+          >
+            <option value="">Select Course</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="B.Tech">B.Tech</option>
+            <option value="BCA">BCA</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="React JS">React JS</option>
+          </select>
+        </div>
 
-    reader.onloadend = () => {
-      setFormData({
-        ...formData,
-        image: reader.result,
-      });
-    };
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            Status
+          </label>
 
-    reader.readAsDataURL(file);
-  }
-}}
-    className="w-full border rounded-lg px-4 py-3"
-  />
-</div>
+          <select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+          >
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="text-gray-700 dark:text-white">
+            Enrollment Date
+          </label>
+
+          <input
+            type="date"
+            name="enrollmentDate"
+            value={formData.enrollmentDate}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            required
+          />
+        </div>
+
+        <div className="col-span-2">
+          <label className="text-gray-700 dark:text-white">
+            Address
+          </label>
+
+          <textarea
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Enter address"
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+            rows="3"
+            required
+          />
+        </div>
+
+        <div className="col-span-2 flex justify-end gap-3">
+
+          <button
+            type="button"
+            onClick={() => navigate("/students")}
+            className="px-6 py-3 bg-gray-400 text-white rounded-lg"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg"
+          >
+            {editStudent ? "Update Student" : "Add Student"}
+          </button>
 
         </div>
 
-        <button
-          type="submit"
-          className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer"
-        >
-          Add Student
-        </button>
       </form>
     </div>
   );

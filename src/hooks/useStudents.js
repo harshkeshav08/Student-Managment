@@ -1,32 +1,45 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function useStudents() {
   const [students, setStudents] = useState(() => {
     const savedStudents = localStorage.getItem("students");
-
     return savedStudents ? JSON.parse(savedStudents) : [];
   });
 
-  useEffect(() => {
-    localStorage.setItem("students", JSON.stringify(students));
-  }, [students]);
-
   const addStudent = (student) => {
-    const newStudent = {
-      ...student,
-      id: Date.now().toString(),
-    };
-    
-    setStudents((prevStudents) => [...prevStudents, newStudent]);
+    const newStudents = [...students, student];
+    setStudents(newStudents);
+    localStorage.setItem("students", JSON.stringify(newStudents));
   };
+
+  const updateStudent = (id, updatedStudent) => {
+    const newStudents = students.map((student) =>
+      student.id === id ? updatedStudent : student
+    );
+
+    setStudents(newStudents);
+    localStorage.setItem("students", JSON.stringify(newStudents));
+  };
+
+  const deleteStudent = (id) => {
+    const newStudents = students.filter(
+      (student) => student.id !== id
+    );
+
+    setStudents(newStudents);
+    localStorage.setItem("students", JSON.stringify(newStudents));
+  };
+
   const clearStudents = () => {
-localStorage.removeItem("students");
-setStudents([]);
-};
+    setStudents([]);
+    localStorage.removeItem("students");
+  };
 
   return {
     students,
     addStudent,
+    updateStudent,
+    deleteStudent,
     clearStudents,
   };
 }
