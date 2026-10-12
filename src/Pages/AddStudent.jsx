@@ -19,6 +19,7 @@ function AddStudent() {
       course: "",
       enrollmentDate: "",
       status: "Active",
+      image: "",
     }
   );
 
@@ -29,6 +30,23 @@ function AddStudent() {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          image: reader.result,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -53,7 +71,30 @@ function AddStudent() {
         {editStudent ? "Edit Student" : "Add Student"}
       </h1>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5"
+      >
+
+        <div className="col-span-1 sm:col-span-2">
+          <label className="text-gray-700 dark:text-white">
+            Student Image
+          </label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImage}
+            className="w-full border rounded-lg px-4 py-3 mt-2"
+          />
+
+          {formData.image && (
+            <img
+              src={formData.image}
+              className="w-24 h-24 mt-3 rounded-xl object-cover"
+            />
+          )}
+        </div>
 
         <div>
           <label className="text-gray-700 dark:text-white">
