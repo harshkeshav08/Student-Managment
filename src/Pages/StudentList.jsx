@@ -101,7 +101,7 @@ function StudentList() {
         Showing {filteredStudents.length} students
       </p>
 
-      <div className="overflow-x-auto">
+      <div>
 
         <table className="mt-10 w-full min-w-[900px]">
 
@@ -181,11 +181,11 @@ function StudentList() {
                     }
                     className="text-xl cursor-pointer text-gray-700 dark:text-white"
                   >
-                    ⋮
+                    •••
                   </button>
 
                   {open === student.id && (
-                    <div className="absolute right-4 top-12 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10">
+                    <div className="absolute right-4 top-12 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
 
                       <button
                         onClick={() =>
