@@ -1,16 +1,19 @@
 function Terms() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
+
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8">
         Terms & Conditions
       </h1>
 
-      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 max-w-3xl">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 max-w-3xl">
+
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-4">
           Terms and Conditions
         </h2>
 
-        <div className="space-y-4 text-gray-600 dark:text-gray-300">
+        <div className="space-y-4 text-sm sm:text-base text-gray-600 dark:text-gray-300">
+
           <p>
             1. Users must provide correct and complete student information.
           </p>
@@ -30,8 +33,10 @@ function Terms() {
           <p>
             5. By using this system, you agree to follow these terms and conditions.
           </p>
+
         </div>
       </div>
+
     </div>
   );
 }

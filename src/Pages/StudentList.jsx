@@ -44,36 +44,38 @@ function StudentList() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
 
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
           Student List
         </h1>
 
         <button
           onClick={() => navigate("/add-student")}
-          className="bg-blue-500 text-white px-5 py-3 rounded-xl"
+          className="bg-blue-500 text-white px-5 py-3 rounded-xl w-full sm:w-auto"
         >
           + New Student
         </button>
+
       </div>
 
-      <div className="flex justify-end mt-6">
+      <div className="flex flex-col sm:flex-row sm:justify-end gap-2 mt-6">
 
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-100 h-10 bg-gray-500 dark:bg-gray-700 rounded-xl placeholder:text-gray-100 pl-4 text-white"
+          className="w-full sm:w-64 lg:w-100 h-10 bg-gray-500 dark:bg-gray-700 rounded-xl placeholder:text-gray-100 pl-4 text-white"
           placeholder="Search students..."
         />
 
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-xl ml-2">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-xl">
           🔍︎
         </button>
 
         <select
           value={course}
           onChange={(e) => setCourse(e.target.value)}
-          className="bg-green-500 text-white px-3 py-2 rounded-xl ml-2"
+          className="bg-green-500 text-white px-3 py-2 rounded-xl"
         >
           <option value="">Filter Course</option>
           <option value="Computer Science">Computer Science</option>
@@ -86,7 +88,7 @@ function StudentList() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="bg-purple-500 text-white px-3 py-2 rounded-xl ml-2"
+          className="bg-purple-500 text-white px-3 py-2 rounded-xl"
         >
           <option value="">Filter Status</option>
           <option value="Active">Active</option>
@@ -99,73 +101,75 @@ function StudentList() {
         Showing {filteredStudents.length} students
       </p>
 
-      <div>
-        <table className="mt-10 w-full">
+      <div className="overflow-x-auto">
+
+        <table className="mt-10 w-full min-w-[900px]">
 
           <thead>
             <tr>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 Name
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 E-mail
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 Phone
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 Address
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 Course
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 Status
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
+              <th className="px-4 sm:px-6 py-3 sm:py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                 Actions
               </th>
             </tr>
           </thead>
 
           <tbody>
+
             {filteredStudents.map((student) => (
               <tr
                 key={student.id}
                 className="border-b border-gray-200 dark:border-gray-700"
               >
 
-                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
                   {student.fullName}
                 </td>
 
-                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
                   {student.email}
                 </td>
 
-                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
                   {student.phone}
                 </td>
 
-                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
                   {student.address}
                 </td>
 
-                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
                   {student.course}
                 </td>
 
-                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
                   {student.status}
                 </td>
 
-                <td className="px-6 py-4 relative">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 relative">
 
                   <button
                     onClick={() =>
@@ -240,7 +244,7 @@ function StudentList() {
         <div className="flex justify-end">
           <button
             onClick={clearStudents}
-            className="fixed bottom-5 right-5 h-10 w-40 bg-gray-300 dark:bg-gray-700 dark:text-white cursor-pointer rounded-xl hover:bg-gray-400 dark:hover:bg-gray-600"
+            className="fixed bottom-5 right-5 h-10 w-36 sm:w-40 bg-gray-300 dark:bg-gray-700 dark:text-white cursor-pointer rounded-xl hover:bg-gray-400 dark:hover:bg-gray-600"
           >
             Clear All
           </button>

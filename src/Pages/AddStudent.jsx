@@ -47,13 +47,13 @@ function AddStudent() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow">
+    <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-4 sm:p-6 lg:p-8 rounded-xl shadow">
 
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8">
         {editStudent ? "Edit Student" : "Add Student"}
       </h1>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-5">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
 
         <div>
           <label className="text-gray-700 dark:text-white">
@@ -177,7 +177,7 @@ function AddStudent() {
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-1 sm:col-span-2">
           <label className="text-gray-700 dark:text-white">
             Address
           </label>
@@ -193,7 +193,7 @@ function AddStudent() {
           />
         </div>
 
-        <div className="col-span-2 flex justify-end gap-3">
+        <div className="col-span-1 sm:col-span-2 flex flex-col sm:flex-row justify-end gap-3">
 
           <button
             type="button"

@@ -22,7 +22,7 @@ function Layout() {
 
         <Navbar />
 
-        <main className="p-8">
+        <main className="p-4 sm:p-6 lg:p-8">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/students" element={<StudentList />} />
