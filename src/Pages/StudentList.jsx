@@ -59,23 +59,23 @@ function StudentList() {
 
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:justify-end gap-2 mt-6">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-end gap-2 mt-6">
 
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-64 lg:w-100 h-10 bg-gray-500 dark:bg-gray-700 rounded-xl placeholder:text-gray-100 pl-4 text-white"
+          className="w-full sm:w-64 lg:w-80 h-10 bg-gray-500 dark:bg-gray-700 rounded-xl placeholder:text-gray-100 pl-4 text-white"
           placeholder="Search students..."
         />
 
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-xl">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-xl w-full sm:w-auto">
           🔍︎
         </button>
 
         <select
           value={course}
           onChange={(e) => setCourse(e.target.value)}
-          className="bg-green-500 text-white px-3 py-2 rounded-xl"
+          className="bg-green-500 text-white px-3 py-2 rounded-xl w-full sm:w-auto"
         >
           <option value="">Filter Course</option>
           <option value="Computer Science">Computer Science</option>
@@ -88,7 +88,7 @@ function StudentList() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="bg-purple-500 text-white px-3 py-2 rounded-xl"
+          className="bg-purple-500 text-white px-3 py-2 rounded-xl w-full sm:w-auto"
         >
           <option value="">Filter Status</option>
           <option value="Active">Active</option>
@@ -101,7 +101,7 @@ function StudentList() {
         Showing {filteredStudents.length} students
       </p>
 
-      <div>
+      <div className="w-full overflow-x-auto">
 
         <table className="mt-10 w-full min-w-[900px]">
 
@@ -145,27 +145,27 @@ function StudentList() {
                 className="border-b border-gray-200 dark:border-gray-700"
               >
 
-                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {student.fullName}
                 </td>
 
-                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {student.email}
                 </td>
 
-                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {student.phone}
                 </td>
 
-                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {student.address}
                 </td>
 
-                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {student.course}
                 </td>
 
-                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {student.status}
                 </td>
 
@@ -241,16 +241,17 @@ function StudentList() {
 
         </table>
 
-        <div className="flex justify-end">
-          <button
-            onClick={clearStudents}
-            className="fixed bottom-5 right-5 h-10 w-36 sm:w-40 bg-gray-300 dark:bg-gray-700 dark:text-white cursor-pointer rounded-xl hover:bg-gray-400 dark:hover:bg-gray-600"
-          >
-            Clear All
-          </button>
-        </div>
-
       </div>
+
+      <div className="flex justify-end">
+        <button
+          onClick={clearStudents}
+          className="fixed bottom-5 right-4 sm:right-5 h-10 w-32 sm:w-40 bg-gray-300 dark:bg-gray-700 dark:text-white cursor-pointer rounded-xl hover:bg-gray-400 dark:hover:bg-gray-600 text-sm sm:text-base"
+        >
+          Clear All
+        </button>
+      </div>
+
     </div>
   );
 }
